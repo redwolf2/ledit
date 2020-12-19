@@ -1,0 +1,80 @@
+/*
+	CASCADING STYLE SHEET
+	---------------------
+	
+	"Clean" by Patrick Dinklage
+	Version 1.0
+	
+	This is free, use it as you like.
+*/
+
+/* General */
+body { background-color: #FFFFFF; font-family: "Helvetica"; font-size: 11pt; color: #000000; }
+
+/* Sizes */
+.xl { font-size: 2.00em; }
+.l { font-size: 1.50em; }
+.s { font-size: 0.75em; }
+
+/* Dimensions */
+.wfull { width: 100%; }
+.hfull { height: 100%; }
+
+/* Borders */
+.border { border: 1px solid #000000; }
+.border-l { border-left: 1px solid #000000; }
+.border-r { border-right: 1px solid #000000; }
+.border-t { border-top: 1px solid #000000; }
+.border-b { border-bottom: 1px solid #000000; }
+.noborder { border: 0px; }
+.noborder-l { border-left: 0px; }
+.noborder-r { border-right: 0px; }
+.noborder-t { border-top: 0px; }
+.noborder-b { border-bottom: 0px; }
+.collapse { border-collapse: collapse; }
+.dashed { border-style: dashed; }
+.dotted { border-style: dotted; }
+
+/* Text Alignment */
+.left { text-align: left; }
+.right { text-align: right; }
+.center { text-align: center; }
+
+.top { vertical-align: top; }
+.bottom { vertical-align: bottom; }
+.middle { vertical-align: middle; }
+
+/* Padding */
+.nopad { padding: 0px; }
+.pad { padding: 3px; }
+
+/* Background */
+.bg-white { background-color: #FFFFFF; }
+.bg-xlight { background-color: #F0F0F0; }
+.bg-light { background-color: #E0E0E0; }
+.bg-dim { background-color: #C0C0C0; }
+.bg-dark { background-color: #808080; }
+
+/* Font */
+.fg-red { color: #C00000; }
+.fg-green { color: #00C000; }
+
+/* Standard */
+.b { font-weight: bold; }
+.u { text-decoration: underline; }
+.i { font-style: italic; }
+
+/* Styles */
+tt { font-family: "Courier"; }
+.code { font-family: "Courier"; }
+.serif { font-family: "Times"; }
+
+/* Links */
+a:link { color: #000080; text-decoration: none; }
+a:hover { text-decoration: underline; }
+a:visited:hover { text-decoration: underline; }
+a:visited { color: #707080; text-decoration: none; }
+a:active { color: #707080; text-decoration: underline; }
+
+/* Preset */
+hr { border: 0px; border-top: 1px solid #000000; border-bottom: 0px; }

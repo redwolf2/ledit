@@ -1,0 +1,303 @@
+=== VARIABLES ===
+X		WORD		later used as Destination offset
+Y		WORD		mainly used as Source offset
+
+0x54	WORD		File number
+
+0x56	WORD		Number of bytes to mass copy
+0x58	WORD		File size (when uncompressed)
+
+0x5A	WORD		Mass copy source offset
+
+0x5D	WORD		zero, used for Y indexing (-> reading from the ROM)
+0x5F	BYTE		Source bank
+0x60	WORD		Destination offset (-> X)
+0x62	BYTE		Destination bank
+0x63	WORD		Destination FINAL offset (where the pointer will be after compression)
+					[0x60] + [0x58]
+					
+0x65	BYTE		Unknown (loaded from ROM)
+0x66	BYTE		Unknown (set to 8)
+
+//Switch to A 16bit mode, push processor status and data bank registers
+$80/8EAF 08          PHP                     A:0000 X:0000 Y:0000 P:EnvMxDIzc
+$80/8EB0 C2 30       REP #$30                A:0000 X:0000 Y:0000 P:EnvMxDIzc
+$80/8EB2 8B          PHB                     A:0000 X:0000 Y:0000 P:EnvmxDIzc
+
+//Get FileNumber
+$80/8EB3 A5 54       LDA $54    [$00:0054]   A:0000 X:0000 Y:0000 P:EnvmxDIzc
+
+//A = FileNumber*3
+$80/8EB5 0A          ASL A                   A:0000 X:0000 Y:0000 P:EnvmxDIzc
+$80/8EB6 65 54       ADC $54    [$00:0054]   A:0000 X:0000 Y:0000 P:EnvmxDIzc
+
+//Get file offset and put it into Y
+//Set [0x5D] to zero
+$80/8EB8 AA          TAX                     A:0000 X:0000 Y:0000 P:EnvmxDIzc
+$80/8EB9 64 5D       STZ $5D    [$00:005D]   A:0000 X:0000 Y:0000 P:EnvmxDIzc
+$80/8EBB BF 00 80 B7 LDA $B78000,x[$B7:8000] A:0000 X:0000 Y:0000 P:EnvmxDIzc
+$80/8EBF 09 00 80    ORA #$8000              A:0000 X:0000 Y:0000 P:EnvmxDIzc
+$80/8EC2 A8          TAY                     A:0000 X:0000 Y:0000 P:EnvmxDIzc
+
+//Get file bank 0xB7 + (bank summand loaded from ROM) and put into [0x5F]
+//Switch to A 8bit mode
+$80/8EC3 BF 01 80 B7 LDA $B78001,x[$B7:8001] A:0000 X:0000 Y:0000 P:EnvmxDIzc
+$80/8EC7 0A          ASL A                   A:0000 X:0000 Y:0000 P:EnvmxDIzc
+$80/8EC8 E2 20       SEP #$20                A:0000 X:0000 Y:0000 P:EnvmxDIzc
+$80/8ECA EB          XBA                     A:0000 X:0000 Y:0000 P:EnvMxDIzc
+$80/8ECB 69 B7       ADC #$B7                A:0000 X:0000 Y:0000 P:EnvMxDIzc
+$80/8ECD 85 5F       STA $5F    [$00:005F]   A:0000 X:0000 Y:0000 P:EnvMxDIzc
+
+//Read low file size byte and store in [0x58]
+$80/8ECF B7 5D       LDA [$5D],y[$55:5555]   A:0000 X:0000 Y:0000 P:EnvMxDIzc
+$80/8ED1 85 58       STA $58    [$00:0058]   A:0000 X:0000 Y:0000 P:EnvMxDIzc
+
+//Increase source offset and check whether we reached the next bank
+$80/8ED3 C8          INY                     A:0000 X:0000 Y:0000 P:EnvMxDIzc
+$80/8ED4 D0 05       BNE $05    [$8EDB]      A:0000 X:0000 Y:0000 P:EnvMxDIzc
+$80/8ED6 A0 00 80    LDY #$8000              A:0000 X:0000 Y:0000 P:EnvMxDIzc
+$80/8ED9 E6 5F       INC $5F    [$00:005F]   A:0000 X:0000 Y:0000 P:EnvMxDIzc
+
+//Read high file size byte and store in [0x59]
+$80/8EDB B7 5D       LDA [$5D],y[$55:5555]   A:0000 X:0000 Y:0000 P:EnvMxDIzc
+$80/8EDD 85 59       STA $59    [$00:0059]   A:0000 X:0000 Y:0000 P:EnvMxDIzc
+
+//Increase source offset and check whether we reached the next bank
+$80/8EDF C8          INY                     A:0000 X:0000 Y:0000 P:EnvMxDIzc
+$80/8EE0 D0 05       BNE $05    [$8EE7]      A:0000 X:0000 Y:0000 P:EnvMxDIzc
+$80/8EE2 A0 00 80    LDY #$8000              A:0000 X:0000 Y:0000 P:EnvMxDIzc
+$80/8EE5 E6 5F       INC $5F    [$00:005F]   A:0000 X:0000 Y:0000 P:EnvMxDIzc
+
+//Switch to A 16bit mode
+$80/8EE7 C2 20       REP #$20                A:0000 X:0000 Y:0000 P:EnvMxDIzc
+
+//Put destination offset into X
+$80/8EE9 A5 60       LDA $60    [$00:0060]   A:0000 X:0000 Y:0000 P:EnvmxDIzc
+$80/8EEB AA          TAX                     A:0000 X:0000 Y:0000 P:EnvmxDIzc
+
+//Store final destination offset in [0x63]
+$80/8EEC 18          CLC                     A:0000 X:0000 Y:0000 P:EnvmxDIzc
+$80/8EED 65 58       ADC $58    [$00:0058]   A:0000 X:0000 Y:0000 P:EnvmxDIzc
+$80/8EEF 85 63       STA $63    [$00:0063]   A:0000 X:0000 Y:0000 P:EnvmxDIzc
+
+//Switch to A 8bit mode
+$80/8EF1 E2 20       SEP #$20                A:0000 X:0000 Y:0000 P:EnvmxDIzc
+
+//Set 0x57 to zero (???)
+$80/8EF3 64 57       STZ $57    [$00:0057]   A:0000 X:0000 Y:0000 P:EnvMxDIzc
+
+//Put destination bank into the data bank register
+$80/8EF5 A5 62       LDA $62    [$00:0062]   A:0000 X:0000 Y:0000 P:EnvMxDIzc
+$80/8EF7 09 7E       ORA #$7E                A:0000 X:0000 Y:0000 P:EnvMxDIzc
+$80/8EF9 48          PHA                     A:0000 X:0000 Y:0000 P:EnvMxDIzc
+$80/8EFA AB          PLB                     A:0000 X:0000 Y:0000 P:EnvMxDIzc
+
+//Check whether destination bank is odd or even
+//If even, jump to 8F01, if odd, jump to 8FA5
+$80/8EFB 4A          LSR A                   A:0000 X:0000 Y:0000 P:EnvMxDIzc
+$80/8EFC 90 03       BCC $03    [$8F01]      A:0000 X:0000 Y:0000 P:EnvMxDIzc
+
+$80/8EFE 82 A4 00    BRL $00A4  [$8FA5]      A:0000 X:0000 Y:0000 P:EnvMxDIzc
+
+//DESTINATION BANK IS EVEN
+//------------------------
+
+//Load next byte and store in [0x65]
+//Increase source offset, if next bank is reached, go to 8F36
+$80/8F01 B7 5D       LDA [$5D],y[$55:5555]   A:0000 X:0000 Y:0000 P:EnvMxDIzc
+$80/8F03 C8          INY                     A:0000 X:0000 Y:0000 P:EnvMxDIzc
+$80/8F04 F0 30       BEQ $30    [$8F36]      A:0000 X:0000 Y:0000 P:EnvMxDIzc
+$80/8F06 85 65       STA $65    [$00:0065]   A:0000 X:0000 Y:0000 P:EnvMxDIzc
+
+//Set [0x66] to 8
+$80/8F08 A9 08       LDA #$08                A:0000 X:0000 Y:0000 P:EnvMxDIzc
+$80/8F0A 85 66       STA $66    [$00:0066]   A:0000 X:0000 Y:0000 P:EnvMxDIzc
+
+//LOOP START
+//Load next byte
+//If negative, jump to 8F52
+$80/8F0C B7 5D       LDA [$5D],y[$55:5555]   A:0000 X:0000 Y:0000 P:EnvMxDIzc
+$80/8F0E 30 42       BMI $42    [$8F52]      A:0000 X:0000 Y:0000 P:EnvMxDIzc
+
+//If positive, copy to destination
+$80/8F10 9D 00 00    STA $0000,x[$00:0000]   A:0000 X:0000 Y:0000 P:EnvMxDIzc
+
+//Check whether file has been uncompressed completely (X == [0x63])
+//If so, jump to 8F33
+$80/8F13 E8          INX                     A:0000 X:0000 Y:0000 P:EnvMxDIzc
+$80/8F14 E4 63       CPX $63    [$00:0063]   A:0000 X:0000 Y:0000 P:EnvMxDIzc
+$80/8F16 F0 1B       BEQ $1B    [$8F33]      A:0000 X:0000 Y:0000 P:EnvMxDIzc
+
+//If not, increase source offset and check whether a new bank has been reached
+//Continue loop of 8F0C
+$80/8F18 C8          INY                     A:0000 X:0000 Y:0000 P:EnvMxDIzc
+$80/8F19 D0 F1       BNE $F1    [$8F0C]      A:0000 X:0000 Y:0000 P:EnvMxDIzc
+$80/8F1B A0 00 80    LDY #$8000              A:0000 X:0000 Y:0000 P:EnvMxDIzc
+$80/8F1E E6 5F       INC $5F    [$00:005F]   A:0000 X:0000 Y:0000 P:EnvMxDIzc
+$80/8F20 80 EA       BRA $EA    [$8F0C]      A:0000 X:0000 Y:0000 P:EnvMxDIzc
+//---> LOOP: 8F0C
+
+//???
+//Copy to destination
+$80/8F22 9D 00 00    STA $0000,x[$00:0000]   A:0000 X:0000 Y:0000 P:EnvMxDIzc
+$80/8F25 E8          INX                     A:0000 X:0000 Y:0000 P:EnvMxDIzc
+
+//Check whether file has been uncompressed completely (X == [0x63])
+$80/8F26 E4 63       CPX $63    [$00:0063]   A:0000 X:0000 Y:0000 P:EnvMxDIzc
+$80/8F28 F0 09       BEQ $09    [$8F33]      A:0000 X:0000 Y:0000 P:EnvMxDIzc
+
+//Increase source offset and check whether a new bank has been reached
+$80/8F2A C8          INY                     A:0000 X:0000 Y:0000 P:EnvMxDIzc
+$80/8F2B F0 10       BEQ $10    [$8F3D]      A:0000 X:0000 Y:0000 P:EnvMxDIzc
+
+//Decrease [0x66]
+//If it gets zero, jump to 8F01, otherwise continue the loop of 8F0C
+$80/8F2D C6 66       DEC $66    [$00:0066]   A:0000 X:0000 Y:0000 P:EnvMxDIzc
+$80/8F2F D0 DB       BNE $DB    [$8F0C]      A:0000 X:0000 Y:0000 P:EnvMxDIzc
+$80/8F31 80 CE       BRA $CE    [$8F01]      A:0000 X:0000 Y:0000 P:EnvMxDIzc
+
+//File has been decompressed completey
+$80/8F33 AB          PLB                     A:0000 X:0000 Y:0000 P:EnvMxDIzc
+$80/8F34 28          PLP                     A:0000 X:0000 Y:0000 P:EnvMxDIzc
+$80/8F35 6B          RTL                     A:0000 X:0000 Y:0000 P:EnvMxDIzc
+
+//New source bank has been reached
+$80/8F36 A0 00 80    LDY #$8000              A:0000 X:0000 Y:0000 P:EnvMxDIzc
+$80/8F39 E6 5F       INC $5F    [$00:005F]   A:0000 X:0000 Y:0000 P:EnvMxDIzc
+$80/8F3B 80 C9       BRA $C9    [$8F06]      A:0000 X:0000 Y:0000 P:EnvMxDIzc
+//---> 8F06
+
+//New source bank has been reached
+$80/8F3D A0 00 80    LDY #$8000              A:0000 X:0000 Y:0000 P:EnvMxDIzc
+$80/8F40 E6 5F       INC $5F    [$00:005F]   A:0000 X:0000 Y:0000 P:EnvMxDIzc
+$80/8F42 80 E9       BRA $E9    [$8F2D]      A:0000 X:0000 Y:0000 P:EnvMxDIzc
+//---> 8F2D
+
+//New source bank has been reached
+$80/8F44 A0 00 80    LDY #$8000              A:0000 X:0000 Y:0000 P:EnvMxDIzc
+$80/8F47 E6 5F       INC $5F    [$00:005F]   A:0000 X:0000 Y:0000 P:EnvMxDIzc
+$80/8F49 80 0E       BRA $0E    [$8F59]      A:0000 X:0000 Y:0000 P:EnvMxDIzc
+//---> 8F59
+
+//New source bank has been reached
+$80/8F4B A0 00 80    LDY #$8000              A:0000 X:0000 Y:0000 P:EnvMxDIzc
+$80/8F4E E6 5F       INC $5F    [$00:005F]   A:0000 X:0000 Y:0000 P:EnvMxDIzc
+$80/8F50 80 36       BRA $36    [$8F88]      A:0000 X:0000 Y:0000 P:EnvMxDIzc
+//---> 8F88
+
+//Loaded byte is negative
+//Shift [0x65] left once (=> WHY?????)
+//If [0x65] was positive, jump to 8F22
+$80/8F52 06 65       ASL $65    [$00:0065]   A:0000 X:0000 Y:0000 P:EnvMxDIzc
+$80/8F54 90 CC       BCC $CC    [$8F22]      A:0000 X:0000 Y:0000 P:EnvMxDIzc
+
+//[0x65] was negative (usual case...)
+//Increase source offset and check whether a new bank has been reached
+$80/8F56 C8          INY                     A:0000 X:0000 Y:0000 P:EnvMxDIzc
+$80/8F57 F0 EB       BEQ $EB    [$8F44]      A:0000 X:0000 Y:0000 P:EnvMxDIzc
+
+//Store loaded (negative) byte in B (high byte of A register)
+$80/8F59 EB          XBA                     A:0000 X:0000 Y:0000 P:EnvMxDIzc
+
+//Load next byte
+$80/8F5A B7 5D       LDA [$5D],y[$55:5555]   A:0000 X:0000 Y:0000 P:EnvMxDIzc
+
+//Check whether the low nibble is zero
+//If so, jump to 8F81
+$80/8F5C 29 0F       AND #$0F                A:0000 X:0000 Y:0000 P:EnvMxDIzc
+$80/8F5E F0 21       BEQ $21    [$8F81]      A:0000 X:0000 Y:0000 P:EnvMxDIzc
+
+//Low nibble is not zero
+//Increase and store in [0x56]
+$80/8F60 1A          INC A                   A:0000 X:0000 Y:0000 P:EnvMxDIzc
+$80/8F61 85 56       STA $56    [$00:0056]   A:0000 X:0000 Y:0000 P:EnvMxDIzc
+
+//Load full byte again
+$80/8F63 B7 5D       LDA [$5D],y[$55:5555]   A:0000 X:0000 Y:0000 P:EnvMxDIzc
+
+//Switch to A 16bit mode (high byte of A is still the negative byte that was read to come here!)
+$80/8F65 C2 20       REP #$20                A:0000 X:0000 Y:0000 P:EnvMxDIzc
+
+//Shift right 4 times -> exclude lowest nibble!
+$80/8F67 4A          LSR A                   A:0000 X:0000 Y:0000 P:EnvmxDIzc
+$80/8F68 4A          LSR A                   A:0000 X:0000 Y:0000 P:EnvmxDIzc
+$80/8F69 4A          LSR A                   A:0000 X:0000 Y:0000 P:EnvmxDIzc
+$80/8F6A 4A          LSR A                   A:0000 X:0000 Y:0000 P:EnvmxDIzc
+
+//Set highest 4 bits
+$80/8F6B 09 00 F0    ORA #$F000              A:0000 X:0000 Y:0000 P:EnvmxDIzc
+
+//Backup X and Y
+$80/8F6E 86 5A       STX $5A    [$00:005A]   A:0000 X:0000 Y:0000 P:EnvmxDIzc
+$80/8F70 5A          PHY                     A:0000 X:0000 Y:0000 P:EnvmxDIzc
+
+//Perform a backwards block move
+//X = starting address (dest offset + A, from read negative byte)
+//Y = ending address (dest offset, from X)
+//A = number of bytes to move (from [0x56])
+//Source bank: 7E (= destination bank!)
+//Destination bank: 7E (= source bank!)
+$80/8F71 9B          TXY                     A:0000 X:0000 Y:0000 P:EnvmxDIzc
+$80/8F72 18          CLC                     A:0000 X:0000 Y:0000 P:EnvmxDIzc
+$80/8F73 65 5A       ADC $5A    [$00:005A]   A:0000 X:0000 Y:0000 P:EnvmxDIzc
+$80/8F75 AA          TAX                     A:0000 X:0000 Y:0000 P:EnvmxDIzc
+$80/8F76 A5 56       LDA $56    [$00:0056]   A:0000 X:0000 Y:0000 P:EnvmxDIzc
+$80/8F78 54 7E 7E    MVN 7E 7E               A:0000 X:0000 Y:0000 P:EnvmxDIzc
+
+//Fetch back X and Y
+$80/8F7B BB          TYX                     A:0000 X:0000 Y:0000 P:EnvmxDIzc
+$80/8F7C 7A          PLY                     A:0000 X:0000 Y:0000 P:EnvmxDIzc
+
+//Switch to A 8bit mode and jump to 8F26 -> continue loop!
+$80/8F7D E2 20       SEP #$20                A:0000 X:0000 Y:0000 P:EnvmxDIzc
+$80/8F7F 80 A5       BRA $A5    [$8F26]      A:0000 X:0000 Y:0000 P:EnvMxDIzc
+
+//Low nibble is zero (usual case)
+//Load full byte again
+$80/8F81 B7 5D       LDA [$5D],y[$55:5555]   A:0000 X:0000 Y:0000 P:EnvMxDIzc
+
+//Backup X and store the read (negative) byte into the low byte of X
+$80/8F83 DA          PHX                     A:0000 X:0000 Y:0000 P:EnvMxDIzc
+$80/8F84 AA          TAX                     A:0000 X:0000 Y:0000 P:EnvMxDIzc
+
+//Increase source offset and check whether a new bank has been reached
+$80/8F85 C8          INY                     A:0000 X:0000 Y:0000 P:EnvMxDIzc
+$80/8F86 F0 C3       BEQ $C3    [$8F4B]      A:0000 X:0000 Y:0000 P:EnvMxDIzc
+
+//Load next byte and store into [0x5B] (high byte of mass copy source offset!!)
+$80/8F88 B7 5D       LDA [$5D],y[$55:5555]   A:0000 X:0000 Y:0000 P:EnvMxDIzc
+$80/8F8A 85 5B       STA $5B    [$00:005B]   A:0000 X:0000 Y:0000 P:EnvMxDIzc
+
+//Only keep lowest 6 bytes, increase by 2 and store into [0x56] (number of bytes to mass copy)
+$80/8F8C 29 3F       AND #$3F                A:0000 X:0000 Y:0000 P:EnvMxDIzc
+$80/8F8E 1A          INC A                   A:0000 X:0000 Y:0000 P:EnvMxDIzc
+$80/8F8F 1A          INC A                   A:0000 X:0000 Y:0000 P:EnvMxDIzc
+$80/8F90 85 56       STA $56    [$00:0056]   A:0000 X:0000 Y:0000 P:EnvMxDIzc
+
+//Switch to A 16bit mode and fetch back the read negative byte
+$80/8F92 C2 20       REP #$20                A:0000 X:0000 Y:0000 P:EnvMxDIzc
+$80/8F94 8A          TXA                     A:0000 X:0000 Y:0000 P:EnvmxDIzc
+
+//Shift right 4 times -> exclude low nibble
+$80/8F95 4A          LSR A                   A:0000 X:0000 Y:0000 P:EnvmxDIzc
+$80/8F96 4A          LSR A                   A:0000 X:0000 Y:0000 P:EnvmxDIzc
+$80/8F97 4A          LSR A                   A:0000 X:0000 Y:0000 P:EnvmxDIzc
+$80/8F98 4A          LSR A                   A:0000 X:0000 Y:0000 P:EnvmxDIzc
+
+//Set highest 4 bits
+$80/8F99 09 00 F0    ORA #$F000              A:0000 X:0000 Y:0000 P:EnvmxDIzc
+
+//Shift mass copy source offset left twice (*4)
+//Rotate accumulator left twice (*4 ?)
+$80/8F9C 06 5A       ASL $5A    [$00:005A]   A:0000 X:0000 Y:0000 P:EnvmxDIzc
+$80/8F9E 2A          ROL A                   A:0000 X:0000 Y:0000 P:EnvmxDIzc
+$80/8F9F 06 5A       ASL $5A    [$00:005A]   A:0000 X:0000 Y:0000 P:EnvmxDIzc
+$80/8FA1 2A          ROL A                   A:0000 X:0000 Y:0000 P:EnvmxDIzc
+
+//Fetch back and jump to 8F6E
+$80/8FA2 FA          PLX                     A:0000 X:0000 Y:0000 P:EnvmxDIzc
+$80/8FA3 80 C9       BRA $C9    [$8F6E]      A:0000 X:0000 Y:0000 P:EnvmxDIzc
+
+//DESTINATION BANK IS ODD
+//------------------------
+//-> CODE IS THE SAME, JUST IT'S OPTIMIZED FOR ODD BANKS!

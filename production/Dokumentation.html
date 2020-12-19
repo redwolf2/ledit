@@ -1,0 +1,605 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" 
+   "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">  
+
+<html>
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=unicode" />
+	<link rel="stylesheet" type="text/css" href="docs/style.clean.css" />
+	<title>LEdit - Dokumentation</title>
+</head>
+<body>
+<div>
+	<div class="xl b"><a id="a_inhalt">LEdit - Dokumentation</a></div>
+	<hr /><br />
+	Dies ist die Dokumentation zu LEdit, dem Universal-Editor für <b>Lufia 2 - Rise of the Sinistrals</b>.<br />
+	<br />
+	<div class="l b">Inhaltsverzeichnis</div>
+	<ul>
+		<li>
+			<b>1 - Über LEdit</b>
+			<ul>
+				<li><a href="#a_1-1">1.1 - Informationen zur Vorab-Version</a></li>
+				<li><a href="#a_1-2">1.2 - Was ist LEdit und was kann es?</a></li>
+				<li><a href="#a_1-3">1.3 - LPatch</a></li>
+				<li><a href="#a_1-4">1.4 - Der "files"-Ordner</a></li>
+				<li><a href="#a_1-5">1.5 - Die XML-Datei</a></li>
+			</ul>
+		</li>
+		<li>
+			<b>2 - Funktionen</b>
+			<ul>
+				<li><a href="#a_2-1">2.1 - Start</a></li>
+				<li><a href="#a_2-2">2.2 - Monster-Editor</a></li>
+				<li><a href="#a_2-3">2.3 - MonsterSprite-Editor</a></li>
+				<li><a href="#a_2-4">2.4 - MapSprite-Editor</a></li>
+				<li><a href="#a_2-5">2.5 - Map-Editor</a></li>
+				<li><a href="#a_2-6">2.6 - Item-Editor</a></li>
+				<li><a href="#a_2-7">2.7 - Datei-Manager</a></li>
+				<li><a href="#a_2-8">2.8 - Skript-Editor</a></li>
+			</ul>
+		</li>
+		<li>
+			<b>3 - Abschlussinformationen</b>
+			<ul>
+				<li><a href="#a_3-1">3.1 - Mitwirkende</a></li>
+				<li><a href="#a_3-2">3.2 - Copyright und Kontakinformationen</a></li>
+			</ul>
+		</li>
+	</ul>
+	<hr /><br />
+	
+	<!-- 1.1 -->
+	<div class="l b"><a id="a_1-1">1.1 - Informationen zur Vorab-Version</a></div><br />
+	Diese erste Version von LEdit befindet sich eigentlich noch in der Entwicklungsphase.
+	Da ich jedoch nur hobbymäßig ab und zu daran arbeite, würde sich eine erste "fertige" Version meiner Schätzung nach
+	um noch mindestens ein Jahr verzögern.<br />
+	Diese Anwendung ist jedoch bereits sehr mächtig und ich möchte sie nicht weiter vorenthalten. Jedoch sei folgendes dazu gesagt:<br /><br />
+	<b>Dies ist eine Vorab-Version, das heißt sie ist unvollständig und möglicherweise fehlerbehaftet</b>.
+	Das soll keine Entschuldigung für Bugs oder dergleichen sein, es ist ganz einfach so.<br />
+	Bug-Reports und sonstige Anregungen nehme ich gerne entgegen (Kontaktdaten siehe <a href="#a_3-2">&rarr; Impressum</a>),
+	ich kann jedoch bei bestem Willen nicht garantieren, dass ich mich umgehend darum kümmern werde.<br />
+	<br />
+	<br /><div class="s"><a href="#a_inhalt">&uarr; Zurück zum Inhaltsverzeichnis</a></div>
+	<hr /><br />
+	
+	<!-- 1.2 -->
+	<div class="l b"><a id="a_1-2">1.2 - Was ist LEdit und was kann es?</a></div><br />
+	<b>LEdit</b> ist ein universeller Editor für <b>Lufia 2 - Rise of the Sinistrals</b> (in Deutschland schlicht als "Lufia" bekannt).
+	Es soll Leuten, die keine Ahnung vom ROM-Hacking haben, die Möglichkeit geben, eigene Inhalte für dieses Spiel zu erstellen
+	und in einen ROM zu patchen, so dass es weiterhin mit Emulatoren lauffähig ist.<br />
+	<br />
+	Hierbei ist zu beachten, dass viele Dinge nur bearbeitet, jedoch nicht neue hinzugefügt werden können.<br />
+	In einigen Bereichen wird das zwar in Zukunft möglich sein, jedoch ist es bei vielen Dingen aufgrund technischer
+	Begrenzungen des Super Nintendo leider nicht möglich.
+	<br />
+	Um LEdit überhaupt starten zu können, wird das <b>Microsoft .NET Framework 2.0</b> oder höher benötigt.<br />
+	<br />
+	Es wird nur der deutsche ROM unterstützt, was sich in Zukunft jedoch noch ändern kann.<br />
+	Folgende Funktionen sind bereits verfügbar:<br />
+	<dl>
+		<dt><b>Monster bearbeiten</b></dt>
+		<dd>
+			Sämtliche Werte der Monster (Level, Stärke, Gold, Erfahrung usw.) können verändert werden.<br />
+			Für die ganz Harten ist es auch möglich, die Kampf-Skripts zu bearbeiten, so dass sogar das Verhalten im Kampf
+			modifizierbar ist.<br />
+			<br />
+		</dd>
+		<dt><b>MonsterSprites bearbeiten</b></dt>
+		<dd>
+			Als "MonsterSprites" bezeichne ich die Grafiken der Monster im Kampf.<br />
+			Der MonsterSprite-Editor kann 16-Farben-Bitmaps (bmp) exportieren und importieren. Kurzum bedeutet dies, dass man
+			sich neue Monster in Paint oder dergleichen malen kann. Darüberhinaus können Farbpaletten verändert und sogar neue
+			hinzugefügt werden.<br />
+			<br />
+		</dd>
+		<dt><b>MapSprites bearbeiten</b></dt>
+		<dd>
+			"MapSprites" habe ich die Grafiken von NPCs in Dungeons getauft, das sind beispielsweise Monster oder Maxim selbst.<br />
+			Auch hier können 16-Farben-Bitmaps exportiert und wieder importiert werden, so dass das Arbeiten mit Paint oder
+			dergleichen möglich ist.<br />
+			Die erweiterten Daten können lediglich betrachtet werden, weil deren Funktionen teilweise noch ungeklärt sind.<br />
+			<br />
+		</dd>
+		<dt><b>Maps bearbeiten</b></dt>
+		<dd>
+			Was wäre ein Editor wie dieser ohne einen Karten-Editor?<br />
+			Sämtliche "Dungeon-Karten" (Dungeons, Türme, Städte etc.) können bearbeitet werden:<br />
+			<ul>
+				<li>Auf beiden Tilemap-Layern einer Karte kann mit einem gegebenen Satz an Blöcken frei gezeichnet werden.</li>
+				<li>Die Kopier- und Einfüge-Funktion erleichtert das Erstellen neuer Orte ungemein.</li>
+				<li>Die Rückgängig-Funktion kann Fehler schnell rückgängig machen.</li>
+				<li>Auch Kollisionen ("Wände") und weitere erforderlichen Dinge können bearbeitet werden.</li>
+				<li>Karten können vergrößert werden, um sie zu erweitern oder einfach mehr Platz zu haben.</li>
+				<li>Einfache Türen können definiert werden.</li>
+				<li>So genannte "Warp-Türen", die den Spieler auf eine andere Karte teleportieren, können gesetzt werden.</li>
+				<li>Die Startpunkte und Bewegungsbereiche von Charakteren bzw. Monstern (in Dungeons) können begrenzt bearbeitet werden.</li>
+			</ul>
+			<br />
+			Die Weltkarte kann zur Zeit nur betrachtet werden (nützlich für Warp-Türen und einfach nur geil),
+			die Unterwasserkarte ist noch gar nicht verfügbar.<br />
+			<br />
+		</dd>
+		<dt><b>Dateien extrahieren und importieren</b></dt>
+		<dd>
+			Dies ist eher was für ROM-Hacker (also speziell für mich selbst).<br />
+			Die komprimierten Dateien können aus dem ROM zur Bearbeitung extrahiert und später wieder importiert werden.<br />
+			<br />
+			Dies ist Grundlage aller Editoren, jedoch machen diese das automatisch und für den Benutzer unsichtbar.<br />
+			<br />
+		</dd>
+		<dt><b>Items</b></dt>
+		<dd>
+			Sämtliche Daten aller Items (Kraftwasser, Waffen, Rüstungen, etc.) können bisher leider nur betrachtet werden.
+		</dd>
+	</dl>
+	<br /><div class="s"><a href="#a_inhalt">&uarr; Zurück zum Inhaltsverzeichnis</a></div>
+	<hr /><br />
+	
+	<!-- 1.3 -->
+	<div class="l b"><a id="a_1-3">1.3 - LPatch</a></div><br />
+	Da das Spiel nicht dafür ausgelegt ist, bearbeitet zu werden, gibt es einige Restriktionen, die vorher beseitigt werden müssen.<br />
+	Dies habe ich mit dem <b>LPatch</b> realisiert. Er verändert den ROM in folgender Weise:
+	<ul>
+		<li>Der ROM (LoROM) wird zu einem ExLoROM erweitert, er ist dann 8MB groß.</li>
+		<li>Damit Lufia unkomprimierte Dateien nutzen kann, wird ein Code-Hack installiert.</li>
+		<li>Weitere Code-Hacks werden installiert, damit verschobene Daten korrekt geladen werden (z.B. Monster).</li>
+		<li>Ist der (ohnehin unnütze) ROM-Header vorhanden, wird dieser entfernt.</li>
+	</ul>
+	Die Funktionalität wird hierdurch in keinster Weise beeinträchtigt.<br />
+	LEdit installiert den Patch nur, wenn dies bestätigt wird und erstellt ein Backup des Originals.
+	Letzteres sollte zur absoluten Sicherheit jedoch zusätzlich vorher manuell erfolgen.<br />
+	<br />
+	<br /><div class="s"><a href="#a_inhalt">&uarr; Zurück zum Inhaltsverzeichnis</a></div>
+	<hr /><br />
+	
+	<!-- 1.4 -->
+	<div class="l b"><a id="a_1-4">1.4 - Der "files"-Ordner</a></div><br />
+	Nach Installation des LPatch werden auch bereits einige Daten extrahiert.<br /><br />
+	Binäre Daten werden in die Verzeichnisstruktur unter <tt>files</tt> abgelegt.<br />
+	Wenn man beispielsweise ein Monster im Monster-Editor auswählt, wird, so fern dies noch nicht geschehen ist, die Monster-Grafik aus dem ROM extrahiert und in
+	<tt>files\monstersprites</tt> abgelegt. Wird hierfür nun eine Bitmap importiert oder eine Palette hinzugefügt und <i>Speichern</i>
+	gewählt, wird in die Datei gespeichert, <i>noch nicht in den ROM</i>.<br /><br />
+	Dies hat zwei Gründe: Geschwindigkeit und vor allem Sicherheit.<br />
+	Wenn Daten im ROM erst einmal überschrieben sind, lassen sie sich nicht wiederherstellen. Daher sollte man Daten
+	nur in den ROM einfügen, wenn man sich da ganz sicher ist.<br /><br />
+	Dieses Konzept wird von allen Editoren verfolgt. Erst durch <tt><b>Datei &rarr; In ROM einfügen</b></tt> werden Daten auch
+	tatsächlich im Spiel verfügbar gemacht.<br /><br />
+	Wird der Ordner <tt>files</tt> gelöscht, sind alle diese temporären Daten verloren.<br />
+	Dies kann sinnvoll sein, wenn man Mist gebaut hat und die Daten aus dem ROM wiederherstellen möchte, denn alles was nicht in
+	<tt>files</tt> gefunden wird, wird wieder aus dem ROM extrahiert.<br />
+	<br />
+	<br /><div class="s"><a href="#a_inhalt">&uarr; Zurück zum Inhaltsverzeichnis</a></div>
+	<hr /><br />
+	
+	<!-- 1.5 -->
+	<div class="l b"><a id="a_1-5">1.5 - Die XML-Datei</a></div><br />
+	Wird ein ROM geladen, wird eine dazugehörige XML-Datei als Kopie von <tt>default.xml</tt> erstellt.<br />
+	<b>Es besteht die ausdrückliche Empfehlung, diese Datei <i>NICHT</i> zu bearbeiten.</b><br /><br />
+	Sie enthält Meta-Informationen, die nichts mit dem Spiel direkt zu tun haben, sondern für LEdit wichtig sind.<br />
+	<br />
+	<br /><div class="s"><a href="#a_inhalt">&uarr; Zurück zum Inhaltsverzeichnis</a></div>
+	<hr /><br />
+	
+	<!-- 2.1 -->
+	<div class="l b"><a id="a_2-1">2.1 - Start</a></div><br />
+	Um mit dem Bearbeiten zu beginnen, benötigt LEdit einen zu bearbeitenden ROM.<br />
+	In der Vorab-Version wird nur die Datei <tt>Lufia 2.smc</tt> geladen, die sich im gleichen Ordner wie LEdit befinden muss.
+	Wird diese nicht gefunden, geschieht absolut gar nichts<br />
+	<br />
+	Wenn der LPatch noch nicht installiert ist, wird die Installation angeboten.<br />
+	LEdit ist da sehr sturr, wird "Nein" gewählt, kann der ROM nicht bearbeitet werden (siehe <a href="#a_1-3">&rarr; LPatch</a>).
+	Die Nachfrage stellt hier eher eine Information dar.<br /><br />
+	<br />
+	Wurde der LPatch installiert, werden der <tt>files</tt>-Ordner und eine XML-Datei erstellt.<br />
+	Sie folgen dem "mir nichts dir nichts"-Prinzip, d.h. wenn man sie in Ruhe lässt, lassen sie einen auch in Ruhe.
+	Das Bearbeiten wird ausdrücklich <i>nicht</i> empfohlen.<br /><br />
+	Es grüßt das Start-Fenster:<br />
+	<img alt="Start-Fenster" src="docs/startfenster.png" /><br />
+	<br />
+	Das Feld "ROM-Informationen" ist in der Vorab-Version noch ungenutzt, wichtig ist lediglich das Menü <tt>Editoren</tt>.<br />
+	<br />
+	Wird das Hauptfenster geschlossen, werden alle Editoren geschlossen und das Programm beendet.<br />
+	Ich werde in Zukunft die Möglichkeit bieten, es als Symbol in den System Tray zu setzen.<br />
+	<br />
+	<br /><div class="s"><a href="#a_inhalt">&uarr; Zurück zum Inhaltsverzeichnis</a></div>
+	<hr /><br />
+	
+	<!-- 2.2 -->
+	<div class="l b"><a id="a_2-2">2.2 - Monster-Editor</a></div><br />
+	Mit dem <b>Monster-Editor</b> können Monsterdaten bearbeitet werden. Er sieht folgendermaßen aus:<br />
+	<img alt="Monster-Editor" src="docs/monstered.png" /><br />
+	<br />
+	Links, im Feld <tt>Monster</tt>, sind alle Monster des Spiels, sortiert nach interner ID-Nummer, aufgelistet.<br />
+	Um eins zu bearbeiten, wird dieses aus der Liste ausgewählt.<br />
+	In Feld <tt>Ansicht</tt> unter der Liste findet sich eine Vorschau der Grafik im Kampf (MonsterSprite) sowie die verwendete
+	Palette. Ein Doppelklick auf die Vorschau öffnet den <a href="#a_2-3">&rarr; MonsterSprite-Editor</a> für diese Grafik.<br />
+	<br />
+	Das Feld <tt>Eigenschaften</tt> stellt den eigentlichen Editor dar.<br />
+	Alle Daten des Monsters werden hier zur Bearbeitung bereitgestellt, die Beschreibungen sollten dabei klar sein, hier einige besondere:
+	<dl>
+		<dt><b>???</b></dt>
+		<dd>
+			Den Nutzen dieser Eigenschaft habe ich noch nicht herausgefunden.<br />
+			Bei den meisten Monstern ist der Wert <tt>50</tt>, er weicht jedoch auch teilweise ab (z.B. Panzergoblin mit <tt>54</tt>).<br />
+			<br />
+			Sollte jemand herausfinden, für was dieser Wert ist, bitte ich diesen, mich zu kontaktieren.
+		</dd>
+		<dt><b>Sprite</b></dt>
+		<dd>
+			Dies ist die ID des zu verwendenden MonsterSprites.<br />
+			Aus irgendeinem Grunde bin ich noch nicht dazu gekommen, diesen Wert veränderbar zu machen.
+		</dd>
+		<dt><b>Palette</b></dt>
+		<dd>
+			Dies ist die Palette des jeweiligen MonsterSprites, die für dieses Monster verwendet werden soll.<br />
+			Wenn man sich die drei Blobs ansieht, sollte der Nutzen klar werden.<br />
+			<br />
+			<b>HINWEIS:</b> Fügt man im MonsterSprite-Editor eine Palette hinzu, weiß der Monster-Editor erst dann davon, wenn
+			man das Sprite neu lädt. Monster-Editor zu und wieder auf ist die einfachste Methode.
+		</dd>
+		<dt><b>Item</b></dt>
+		<dd>
+			Dies ist das Item, welches man erhalten kann, wenn man dieses Monster im Kampf schlägt.<br />
+			Hierzu gehört auch die Wahrscheinlichkeit, mit der man dieses Item erhält.
+		</dd>
+		<dt><b>Skripte</b></dt>
+		<dd>
+			Das <b>Attacke-Skript</b> wird vom Spiel ausgeführt, wenn das Monster mit angreifen dran ist.<br />
+			Das <b>Defensiv-Skript</b> wird ausgeführt, wenn das Monster Schaden erleidet.<br />
+			<br />
+			<tt>Ansehen...</tt> öffnet den <a href="#a_2-8">&rarr; Skript-Editor</a>.
+		</dd>
+	</dl>
+	<br />
+	Die Menü-Einträge haben folgende Funktionen:
+	<dl>
+		<dt><b>Monster &rarr; Speichern</b> <tt>(STRG+S)</tt></dt>
+		<dd>
+			Speichert die Daten <i>aller</i> Monster in die Datei <tt>files\monsters.l2</tt>.<br />
+			Es ist empfehlenswert, nach jeder Bearbeitung eines Monsters zu speichern.<br />
+			<br />
+			Wird der Editor geschlossen, wenn ein Monster bearbeitet wurde, wird gefragt, ob gespeichert werden soll.
+		</dd>
+		<dt><b>Monster &rarr; Alle in ROM einfügen...</b> <tt>(STRG+I)</tt></dt>
+		<dd>
+			Fügt die Daten aus <tt>files\monsters.l2</tt> in den ROM ein, so dass sie im Spiel vorhanden sind.<br />
+		</dd>
+	</dl>
+	<br /><div class="s"><a href="#a_inhalt">&uarr; Zurück zum Inhaltsverzeichnis</a></div>
+	<hr /><br />
+	
+	<!-- 2.3 -->
+	<div class="l b"><a id="a_2-3">2.3 - MonsterSprite-Editor</a></div><br />
+	Der <b>MonsterSprite-Editor</b> ist ein Tool zum Bearbeiten der Kampf-Grafiken von Monstern:<br />
+	<img alt="MonsterSprite-Editor" src="docs/mspriteed.png" /><br />
+	<br />
+	Links ist die Liste aller MonsterSprites des Spiels, sortiert nach interner ID-Nummer.<br />
+	Es werden nicht außerordentlich viele, dafür jedoch sehr mächtige Funktionen geboten:
+	<dl>
+		<dt><b>Tilemap &rarr; BMP Exportieren</b></dt>
+		<dd>
+			Speichert die Grafik in eine 16-Farben-Bitmap (bmp), welche mit gängigen Programmen wie Paint, Photoshop oder ähnlichen
+			geöffnet und bearbeitet werden kann.
+		</dd>
+		<dt><b>Tilemap &rarr; BMP Importieren</b></dt>
+		<dd>
+			Lädt eine 16-Farben-Bitmap (bmp) und konvertiert sie in eine Super Nintendo-Tilemap, die Lufia verwenden kann.<br />
+			<br />
+			Standardmäßig exportiert man eine Bitmap, bearbeitet sie und importiert sie wieder.<br />
+			Importiert man eine eigene Bitmap, ist die Größe zu beachten:<br />
+			Sie muss <b>mindestens <tt>32x32</tt></b> und darf <b>höchstens <tt>128x128</tt></b> groß sein, dabei müssen sowohl Höhe als auch Breite durch <b><tt>16</tt></b> teilbar sein.<br />
+			<br />
+			Außerdem ist zu beachten, dass der Super Nintendo nur begrenzt Video-Speicher aufweist.<br />
+			Kommt man auf die Idee, einem Blob die Grafik von Gades zu geben und trifft im Spiel auf 4 Blobs, wird man dafür bitter bestraft...<br />
+			<br />
+			Nur die Tilemap wird importiert, nicht die Palette. Diese muss, wenn nötig, gesondert geladen werden (siehe unten).
+		</dd>
+		<dt><b>Palette &rarr; Hinzufügen</b></dt>
+		<dd>
+			Fügt dem MonsterSprite eine neue Palette als Kopie der momentan gewählten Palette hinzu.
+		</dd>
+		<dt><b>Palette &rarr; Entfernen</b></dt>
+		<dd>
+			Entfernt die momentan gewählte Palette, sofern sie nicht die einzige ist.
+		</dd>
+		<dt><b>Palette &rarr; Aus BMP Importieren</b></dt>
+		<dd>
+			Lädt eine 16-Farben-Bitmap und konvertiert die 16 Farben in eine Palette. Die momentan gewählte Palette wird dabei
+			überschrieben.<br />
+			Die erste Farbe einer Palette wird im Spiel nicht dargestellt.
+		</dd>
+		<dt><b>Datei &rarr; Speichern</b> <tt>(STRG+S)</tt></dt>
+		<dd>
+			Speichert das ausgewählte MonsterSprite in die entsprechende Datei unter <tt>files\monstersprites</tt>.
+		</dd>
+		<dt><b>Datei &rarr; In ROM einfügen...</b> <tt>(STRG+I)</tt></dt>
+		<dd>
+			Fügt das gewählte MonsterSprite in den ROM ein und installiert es damit ins Spiel.
+		</dd>
+		<dt><b>Datei &rarr; Wiederherstellen</b> <tt>(STRG+I)</tt></dt>
+		<dd>
+			<i>Nicht in dieser Version verfügbar.</i>
+		</dd>
+	</dl>
+	<br /><div class="s"><a href="#a_inhalt">&uarr; Zurück zum Inhaltsverzeichnis</a></div>
+	<hr /><br />
+
+	<!-- 2.4 -->
+	<div class="l b"><a id="a_2-4">2.4 - MapSprite-Editor</a></div><br />
+	Der <b>MapSprite-Editor</b> bietet Funktionen zur Bearbeitung der NPC- und Objekt-Grafiken in Dungeons o.Ä.:<br />
+	<img alt="MapSprite-Editor" src="docs/mapspriteed.png" /><br />
+	<br />
+	Das Feld <tt>Bearbeiten</tt> bietet einige Grundfunktionen für die einzelnen MapSprites.<br />
+	Der <b>Name</b> ist nur für LEdit von Bedeutung. Ich habe ihn eingeführt, um die Arbeit zu erleichtern.<br />
+	<br />
+	Die <b>Palette</b> ist eine der 8 Paletten, die Lufia für MapSprites bereitstellt.<br />
+	<b>HINWEIS:</b> Wird eine Palette verändert, gilt diese Änderung auch für alle anderen MapSprites, die diese Palette verwenden!<br />
+	<br />
+	Die <b>Adresse</b> ist die interne Speicheradresse, an der die Tilemap gespeichert ist.<br />
+	<b>HINWEIS:</b> Wird eine Tilemap verändert, gilt diese Änderung auch für alle anderen MapSprites, die dieselbe Adresse haben!<br />
+	<br />
+	Folgende Menüfunktionen stehen zur Verfügung:
+	<dl>
+		<dt><b>Tilemap &rarr; BMP Exportieren</b></dt>
+		<dd>
+			Speichert die gewählte Grafik in eine 16-Farben-Bitmap (bmp), welche mit gängigen Programmen wie Paint, Photoshop oder ähnlichen
+			geöffnet und bearbeitet werden kann.
+		</dd>
+		<dt><b>Tilemap &rarr; BMP Importieren</b></dt>
+		<dd>
+			Lädt eine 16-Farben-Bitmap (bmp) und konvertiert sie in eine Super Nintendo-Tilemap, die Lufia verwenden kann.<br />
+			Die Größe sollte sich nicht von der des Originals unterscheiden.
+		</dd>
+		<dt><b>Palette &rarr; Aus BMP Importieren</b></dt>
+		<dd>
+			Lädt eine 16-Farben-Bitmap und konvertiert die 16 Farben in eine Palette. Die momentan gewählte Palette wird dabei
+			überschrieben.
+		</dd>
+	</dl>
+	<br /><div class="s"><a href="#a_inhalt">&uarr; Zurück zum Inhaltsverzeichnis</a></div>
+	<hr /><br />
+	
+	<!-- 2.5 -->
+	<div class="l b"><a id="a_2-5">2.5 - Map-Editor</a></div><br />
+	Mit dem <b>Map-Editor</b> werden die Karten des Spiels bearbeitet.<br />
+	Was Karten betrifft, gibt es aus technischer Sicht noch sehr viel Forschungsbedarf, weshalb noch nicht all zu viel möglich ist.
+	Vieles scheint noch sehr provisorisch, kann aber schon vieles ausrichten.<br />
+	<br />
+	Der Editor sieht wie folgt aus:<br />
+	<img alt="Map-Editor" src="docs/maped.png" /><br />
+	<br />
+	Zunächst muss eine Karte geladen werden. Hierzu wählt man die gewünschte Karte aus der Liste aus und wählt <tt>Map laden</tt>.<br />
+	Alternativ kann man die Weltkarte laden und betrachten, sie kann jedoch noch nicht bearbeitet werden.<br />
+	<br />
+	Im Feld <tt>Map</tt> wird die Karte gezeichnet. Mithilfe der Scrollbalken kann man über die Karte scrollen.<br />
+	Die Statusleiste zeigt einige Informationen, von links nach rechts:
+	<ul>
+		<li>Name der Karte</li>
+		<li>Größe der Karte (Breite x Höhe) in Tiles</li>
+		<li>Blockset-Nummer</li>
+		<li>Tileset-Nummer</li>
+		<li>Maus-Koordinaten (x, y) in Tiles</li>
+		<li>ID des Tiles unter dem Mauszeiger auf Layer 1</li>
+		<li>ID des Tiles unter dem Mauszeiger auf Layer 2</li>
+	</ul>
+	Lediglich die Maus-Koordinaten sind wohl für den Nutzer von Interesse.<br />
+	<br />
+	Der Editor arbeitet modusbasiert, das heißt abhängig davon, in welchem Modus man sich befindet, werden Dinge in der Ansicht
+	gezeichnet und hat die Maus unterschiedliche Funktionen.<br />
+	Der Modus kann im Menü <tt>Bearbeiten</tt> oder in der Toolbar gewählt werden.<br />
+	<dl>
+		<dt><b>Auswählen</b></dt>
+		<dd>
+			In diesem Modus können Tiles ausgewählt werden.<br />
+			Mit der linken Maustaste wird ein Tile ausgewählt, auch mehrere können ausgewählt werden.<br />
+			Mit der mittleren Maustaste wird im Feld <tt>Blöcke</tt> das Tile an der Mauspoistion auf dem gewählten Layer selektiert
+			(vergleichbar mit der Pipette in Paint).<br />
+			Die rechte Maustaste öffnet das Kontextmenü, welches einige Operationen für die gewählten Tiles bietet.<br />
+			<br />
+			So lassen sich beispielsweise die gewählten Tiles kopieren und woanders wieder einfügen.<br />
+			Charakter-Bereiche, Türen und Warp-Türen werden später erläutert.<br />
+			<br />
+			Die Funtkion <tt>Raum erstellen</tt> funktioniert derzeit nur in Höhlen (z.B. Höhle der Geheimnisse) und Tempeln
+			(z.B. Schwerttempel). Wurde eine Fläche gewählt, wird diese mit dem Standard-Boden-Tile gefüllt und Wände drum herum
+			gezeichnet.<br />
+			Ist der Raum fertig, kann man auf ein Wand-Tile klicken und <tt>Wände verbinden</tt> wählen,
+			um die Ecken etc. zu einer kontinuierlichen Wand zu verbinden.<br /><br />
+			Ein Beispiel: <a href="docs/room1.png">Schritt 1</a> &middot; <a href="docs/room2.png">Schritt 2</a> &middot; <a href="docs/room3.png">Schritt 3</a>
+		</dd>
+		<dt><b>Zeichnen</b></dt>
+		<dd>
+			In diesem Modus können Tiles gezeichnet werden.<br />
+			Mit dem Tile, das im Feld <tt>Blöcke</tt> ausgewählt ist, wird auf dem gewählten Layer (1 oder 2) gezeichnet.<br /><br />
+			Die linke Maustaste hat keine Funktion. Dies kann sich ändern, jedoch klickt man mal gern aus Versehen irgendwohin
+			und daher wurden der Taste jegliche Funktionen entzogen.<br />
+			Die mittlere Taste fungiert wie im Auswahl-Modus als Pipette,<br />
+			mit der rechten Maustaste wird gezeichnet.<br />
+		</dd>
+		<dt><b>Fläche füllen</b></dt>
+		<dd>
+			<i>Funktioniert noch nicht.</i>
+		</dd>
+		<dt><b>Horizontale / Vertikale Kollisionen bearbeiten</b></dt>
+		<dd>
+			Wird dieser Modus gewählt, wird man rote Linien in der Ansicht sehen. Diese zeichnen Kollisionen, das heißt Linien,
+			über die der Spieler sich nicht bewegen kann, es sind so zu sagen Wände.<br />
+			Jedes Tile besitzt eine Kollision links und oben, vertikal und horizontal.<br /><br />
+			In diesem Modi kann man mit der linken Maustaste Kollisionen setzen und mit der rechten entfernen.<br /><br />
+			Beispiel: <a href="docs/coll1.png">Schritt 1</a> &middot; <a href="docs/coll2.png">Schritt 2</a>
+		</dd>
+		<dt><b>Raumgrenzen bearbeiten</b></dt>
+		<dd>
+			Diese Funktion ist nur für Innenkarten sinnvoll.<br />
+			Ist sie aktiviert, können Raumgrenzen gesetzt und entfernt werden, sie werden in Form von blauen X-Zeichen dargestellt.<br />
+			Raumgrenzen werden von Lufia benötigt, um zu "wissen", wo es aufhören soll, den Raum zu zeichnen.<br />
+			Ein gutes Beispiel ist Karte <tt>0x04 - Taia</tt>.
+		</dd>
+		<dt><b>Raumübergänge bearbeiten</b></dt>
+		<dd>
+			Die tatsächliche Funktion von Raumübergängen ist mir noch nicht bekannt, jedoch findet man diese überall an Türen
+			an Stelle von Raumgrenzen.<br />
+			Sie sollten nur bei der Erstellung von Türen gesetzt werden und sind ebenfalls nur für Innenkarten sinnvoll.<br />
+			Sie werden als grüne X-Symbole dargestellt.
+		</dd>
+		<dt><b>Hindernisse bearbeiten</b></dt>
+		<dd>
+			Hindernisse sind diejenigen Tiles, an denen beispielsweise Pfeile abprallen oder das Schwert ein entsprechendes
+			Geräusch macht. Eine konkrete Funktion ist mir noch nicht bekannt (das oben genannte hätte man ja auch mit
+			Kollisionen realisieren können).<br />
+			Sie machen nur in Dungeons Sinn und werden durch ein gelbes Plus-Symbol dargestellt.
+		</dd>
+	</dl>
+	Mehrfach erwähnt wurden bereits die <b>Layer</b>.<br />
+	Eine Karte besteht aus zwei Tilemap-Layern.
+	Layer 1 wird zuerst gezeichnet, danach die Sprites (z.B. Maxim) und zuletzt Layer 2,<br />
+	Layer 1 ist damit also der Hintergrund und Layer 2 der Vordergrund.<br />
+	Welcher Layer bearbeitet wird, kann mit den entsprechenden Buttons gewählt werden.<br />
+	Kollisionen etc. sind vom Layer komplett unabhängig.<br />
+	<br />
+	Die <b>Gitternetzlinien</b> erklären sich von allein. Über die Karte wird dann ein Gitternetz gezeichnet, was bei
+	präzisen Zeichnungen helfen kann.<br />
+	<br />
+	In der Toolbar gibt es noch weitere Ansichtsoptionen:
+	<dl>
+		<dt><b>Türen</b></dt>
+		<dd>
+			Türen sind spezielle Bereiche, in denen
+			<ul>
+				<li>die Tiles geändert werden,</li>
+				<li>die Kollision aufgehoben wird,</li>
+			</ul>
+			wenn man sie berührt.<br />
+			<br />
+			Eine Tür besteht in Lufia aus drei Bereichen:
+			<ol>
+				<li>Der Bereich der Tür-Tiles, die sich bei Öffnung ändern (rot im Editor).</li>
+				<li>Unbekannte Funktion...</li>
+				<li>Unbekannte Funktion...</li>
+			</ol>
+			<br />
+			Außerdem besitzen sie zwei weitere noch unbekannte Eigenschaften.
+		</dd>
+		<dt><b>Warp-Türen</b></dt>
+		<dd>
+			Warp-Türen sind Bereiche, die, wenn man sie betritt, den Spieler an einen anderen Ort teleportieren.<br />
+			Ein Beispiel ist der Rand einer Stadt: läuft man darüber hinaus, kommt man auf die Weltkarte.
+			Treppen usw. funktionieren auf diese Weise.
+		</dd>
+		<dt><b>Charakter-Bereiche</b></dt>
+		<dd>
+			Diese beschreiben Startpunkt und Bewegungsbereich eines NPCs dar, also beispielsweise eines Monstes
+			oder der Berwohner in der Stadt.<br />
+			Es ist leider nicht geklärt, wie festgelegt werden kann, <i>welche Art</i> von NPC an diese Stelle gesetzt wird.
+		</dd>
+		<dt><b>Trigger</b></dt>
+		<dd>
+			Trigger sind Bereiche, die, wenn man sie betritt, ein Story-Ereignis auslösen.<br />
+			Ein Beispiel auf Karte <tt>0x03 - Taia</tt>: Betritt man am Anfang des Spiels Trigger-Bereich <tt>0x02</tt>, kommt der
+			alte Herr und bestellt den Spieler in die Höhle der Geheimnisse.<br /><br />
+			Trigger können noch nicht bearbeitet werden, weil sie weitestgehend unerforscht sind.
+		</dd>
+	</dl>
+	Mittels <b>Map &rarr; Größe ändern...</b> lässt sich zuletzt die Größe der Karte in Tiles verändern.<br />
+	Wird sie vergrößert, wird der neue Bereich mit Null-Tiles belegt, wird sie verkleinert, wird der überflüssige
+	Bereich abgeschnitten (also Vorsicht!).<br />
+	<br />
+	Die Funktionen <b>Datei &rarr; Speichern</b> und <b>Datei &rarr; In ROM einfügen...</b> funktionieren wie in den anderen Editoren.<br />
+	Karten befinden sich in <tt>files\maps</tt>.<br />
+	<br />
+	<br /><div class="s"><a href="#a_inhalt">&uarr; Zurück zum Inhaltsverzeichnis</a></div>
+	<hr /><br />
+	
+	<!-- 2.6 -->
+	<div class="l b"><a id="a_2-6">2.6 - Item-Editor</a></div><br />
+	Im <b>Item-Editor</b> können zur Zeit Item-Daten nur betrachtet werden.<br />
+	Er ist ähnlich dem Monster-Editor aufgebaut und wird daher nicht weiter erläutert:<br />
+	<img alt="Item-Editor" src="docs/itemed.png" /><br />
+	<br />
+	<br /><div class="s"><a href="#a_inhalt">&uarr; Zurück zum Inhaltsverzeichnis</a></div>
+	<hr /><br />
+	
+	<!-- 2.7 -->
+	<div class="l b"><a id="a_2-7">2.7 - Datei-Manager</a></div><br />
+	Der <b>Datei-Manager</b> kann die komprimierten Dateien im ROM dekomprimieren und extrahieren und ermöglicht es, sie wieder
+	zu importieren und damit ins Spiel einzufügen:<br />
+	<img alt="Datei-Manager" src="docs/fileman.png" /><br />
+	<br />
+	In Lufia 2 sind 680 komprimierte Dateien enthalten.<br />
+	Einen großen Teil konnte ich bereits aufgrund deren Inhalt einordnen, sie werden in ein entsprechendes
+	Unterverzeichnis von <tt>files</tt> extrahiert.<br />
+	<br />
+	<br /><div class="s"><a href="#a_inhalt">&uarr; Zurück zum Inhaltsverzeichnis</a></div>
+	<hr /><br />
+	
+	<!-- 2.8 -->
+	<div class="l b"><a id="a_2-8">2.8 - Skript-Editor</a></div><br />
+	Der <b>Skript-Editor</b> ermöglicht es, Kampf-Skripte von Monstern oder Items zu bearbeiten.<br />
+	Diese liegen in einem Lufia 2-eigenen Bytecode vor. Der Skript-Editor übersetzt diesen Code in eine von mir vorübergehend
+	entwickelte Assembler-ähnliche Sprache, damit dieser lesbarer wird.<br />
+	Bearbeiten kann man den Code jedoch vorerst nur in Bytes.<br />
+	<img alt="Skript-Editor" src="docs/scripted.png" /><br />
+	<br />
+	Folgende Menüfunktionen sind verfügbar:
+	<dl>
+		<dt><b>Skript &rarr; Code kompilieren</b></dt>
+		<dd>
+			Versucht, den Bytecode aus dem Textfeld <tt>Code</tt> zu interpretieren und gibt den neuen Code "übersetzt" im Feld
+			<tt>Skript</tt> aus.
+		</dd>
+		<dt><b>Skript &rarr; Speichern</b></dt>
+		<dd>
+			Speichert den kompilierten Code (z.B. in die Daten des Monsters, das gerade bearbeitet wird.
+		</dd>
+	</dl>
+	<br /><div class="s"><a href="#a_inhalt">&uarr; Zurück zum Inhaltsverzeichnis</a></div>
+	<hr /><br />
+	
+	<!-- 3.1 -->
+	<div class="l b"><a id="a_3-1">3.1 - Mitwirkende</a></div><br />
+	Folgenden Personen möchte ich mich für direkte bzw. indirekte Hilfe danken:
+	<dl>
+		<dt><b>relnqshd</b></dt>
+		<dd>
+			Für die Zusammenstellung seiner "Reliquary", welche einige Zusammenhänge erklärte und mir insbesondere beim Ausarbeiten
+			der Kampf-Skripts mehr als geholfen hat.<br />
+			Die Vielzahl an Dokumenten hat mir eine Menge Arbeit erspart, wenngleich diese nur den englischen ROM behandeln.
+		</dd>
+		<dt><b>Universal</b></dt>
+		<dd>
+			Für einige Informationen zu Items und Zaubern.
+		</dd>
+		<dt><b>Artemis</b></dt>
+		<dd>
+			Für das Antesten des Editors und die indirekte Erinnerung daran, endlich mal eine Vorab-Version herauszubringen...
+		</dd>
+	</dl>
+	<br /><div class="s"><a href="#a_inhalt">&uarr; Zurück zum Inhaltsverzeichnis</a></div>
+	<hr /><br />
+	
+	<!-- 3.2 -->
+	<div class="l b"><a id="a_3-2">3.2 - Copyright und Kontaktinformationen</a></div><br />
+	<div class="serif border pad">
+		<b>LEdit</b><br />
+		© 2006 - 2009<br />
+		Patrick Dinklage<br />
+		<br />
+		Dieses Produkt ist Freeware, es gilt die Lizenz <i>&bdquo;Creative Commons -- Namensnennung-Keine kommerzielle Nutzung-Keine Bearbeitung 3.0 Deutschland&ldquo;</i>,<br />
+		welche unter folgender URL abzurufen ist: <a href="http://creativecommons.org/licenses/by-nc-nd/3.0/de/">http://creativecommons.org/licenses/by-nc-nd/3.0/de/</a><br />
+		<br />
+		Bei Vervielfältigung dieser Software ist der Name des Autors in frei wählbarer Weise kenntlich zu machen sowie auf die oben genannte Lizenz zu verweisen.<br />
+		Die kommerzielle Nutzung oder Veränderung dieser Software ist in keiner Form gestattet.<br /><br />
+		Der Autor übernimmt keine Verantwortung für eventuelle Schäden, die durch Benutzung dieser Software entstehen.<br />
+		<br />
+		Kontakt: <a href="mailto:pdmail@gmx.de">pdmail@gmx.de</a>
+	</div>
+	<br />
+	<br /><div class="s"><a href="#a_inhalt">&uarr; Zurück zum Inhaltsverzeichnis</a></div>
+	<hr />
+	<div class="right">
+		<a href="http://users.skynet.be/mgueury/mozilla/">
+			<img class="noborder" src="docs/serial_16.gif" alt="Validated by HTML Validator" title="Validated by HTML Validator" />
+		</a>
+	</div>
+</div>
+</body>
+</html>
